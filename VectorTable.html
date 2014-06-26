@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#div2
+{
+display:inline;
+}
+</style>
+<script>
+
+var LIFESPAN = 30;
+
+function dynamictable()
+{
+  var columnHeading = ["Length","Degrees"];
+  var newSet = getCookie("newSet");
+  var newSetRowCount = getCookie("newSetRowCount");
+  var rowsInSet = decodeURIComponent(getCookie( "rowsInSet" )).split(',');
+
+  if (rowsInSet != "")
+  {
+    tableSets = getTableSets(rowsInSet); 
+    var lastSetIndex = getCookie( "lastSetIndex" );
+  }
+  else if (newSet != "Yes")
+  {
+    var tableSets = [[[230,48],[400,195]],
+                     [[150,110],[300,180],[375,280]],
+                     [[200,30],[300,70],[350,300],[400,280]]];
+    var rowsInSet = [2,3,4];
+    var lastSetIndex = 0; 
+    newSet = "No";
+    newSetRowCount = "3";
+    setCookieAll(tableSets,rowsInSet,lastSetIndex,newSet,newSetRowCount);
+  }
+
+  if (newSet == "Yes")
+  {
+    var rows = new Array();
+    for (var j = 0; j < newSetRowCount;j++){
+      rows[j] = ["",""];
+    }
+    if (rowsInSet == "")
+    { 
+      var tableSets = new Array();
+      rowsInSet[0] = newSetRowCount; 
+    } else
+    {
+    rowsInSet.push(newSetRowCount);
+    }
+    tableSets.push(rows);
+
+    lastSetIndex = tableSets.length - 1; 
+    newSet = "No";
+    newSetRowCount = "3";
+    setCookieAll(tableSets,rowsInSet,lastSetIndex,newSet,newSetRowCount);
+  }
+
+  var table1=document.createElement("table");
+  table1.id="tab1";
+  table1.border=1;
+  var tmpRow = null;
+  var tmpCell = null;
+  
+  tmpRow=table1.insertRow(-1);
+  for (var j=0;j<columnHeading.length;j++)
+  {
+    tmpCell=tmpRow.insertCell(-1);
+    tmpCell.innerText = columnHeading[j];
+  }
+ 
+  for (var i=0;i<tableSets[lastSetIndex].length;i++){
+    tmpRow=table1.insertRow(-1);
+    for (var j=0;j<tableSets[lastSetIndex][i].length;j++)
+    {
+      tmpCell=tmpRow.insertCell(-1);
+      tmpCell.innerHTML = "<input value= " + tableSets[lastSetIndex][i][j] +">";
+    }
+  }
+  document.getElementById("div1").appendChild(table1);
+  var htmlButton1 = '<button type="button" onclick="nextTable(' + 
+    lastSetIndex + ',' + rowsInSet.length + ')">Next set</button>';
+  var htmlButton2 = '<button type="button" onclick="diagrams()' + 
+    '">Diagrams</button>';
+  var htmlButton3 = '<button type="button" onclick="getNewSet()' + 
+    '">New Set</button>';
+  var htmlButton4 = '<button type="button" onclick="deleteSet(' +
+    lastSetIndex + ')">Delete Set</button>';
+  document.getElementById("div2").innerHTML= '<pre>author: Rodney Speel       ' + 
+    htmlButton1 + htmlButton2 + htmlButton3 +
+    ' of <input value= ' + newSetRowCount + ' size="2"> Vectors    ' +
+    htmlButton4 + '</pre>'; 
+}	
+
+function setCookie ( cookie_name, cookie_value,
+    lifespan_in_days )
+{
+     document.cookie = cookie_name +
+                       "=" + encodeURIComponent( cookie_value ) +
+                       "; max-age=" + 60 * 60 *
+                       24 * lifespan_in_days ;
+}
+
+function setCookieAll ( tableSets,rowsInSet,lastSetIndex,newSet,newSetRowCount)
+{
+  var cookieString = "";
+  cookieString = tableSets.join();
+  setCookie("tableSets",cookieString,LIFESPAN);
+  var cookieString = "";
+  cookieString = rowsInSet.join();
+  setCookie("rowsInSet",cookieString,LIFESPAN);
+  setCookie("lastSetIndex",lastSetIndex,LIFESPAN);
+  setCookie("newSet",newSet,LIFESPAN);
+  setCookie("newSetRowCount",newSetRowCount);
+}
+
+function getCookie(cname)
+{
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0; i<ca.length; i++) 
+    {
+    var c = ca[i].trim();
+    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+    }
+  return "";
+}
+
+function getTableSets (rowsInSet)
+{
+  var cookieContents = decodeURIComponent(getCookie("tableSets"));
+  var cookieArray = cookieContents.split(',');
+  var tableSets = new Array();
+  var k = 0;
+  for (var i = 0; i < rowsInSet.length;i++){
+    var rows = new Array();
+    for (var j = 0; j < rowsInSet[i];j++){
+      rows[j] = [cookieArray[k++],cookieArray[k++]];
+    }
+    tableSets[i] = rows;
+  }
+  return tableSets;
+}
+
+function getInput ()
+{
+  var data = [],tableSets = [],cookieString; 
+  var lastSetIndex = getCookie( "lastSetIndex" );
+  var table = document.getElementById( 'tab1' ); 
+  var input = table.getElementsByTagName( 'input' ); 
+  for ( var i = 0; i < input.length; i++ ) { 
+      data.push( input[i].value ); 
+  }
+  var rowsInSet = decodeURIComponent(getCookie( "rowsInSet" )).split(',');
+  tableSets = getTableSets(rowsInSet); 
+  tableSets[lastSetIndex] = data;
+  cookieString = tableSets.join();
+  setCookie("tableSets",cookieString,LIFESPAN);
+  getDiv2Input();
+}
+
+function nextTable(lastSetIndex, maxRows)
+{
+  getInput();
+  if (lastSetIndex == maxRows - 1)
+    {
+      lastSetIndex = -1;
+    }
+  var nextSetIndex = ++lastSetIndex;
+  setCookie("lastSetIndex",nextSetIndex,LIFESPAN);
+  location.reload();
+}
+
+function diagrams()
+{
+  var diagramsFile = "VectorsPanel.html";
+  var n = location.href.lastIndexOf("/");
+  var oldFile = location.href.substr(n+1);
+  var diagramsHref = location.href.replace(oldFile,diagramsFile);
+  getInput();
+  diagramsHref = diagramsHref + "?tableSets=" + getCookie("tableSets") + 
+    "&rowsInSet=" + getCookie("rowsInSet") +
+    "&lastSetIndex=" + getCookie("lastSetIndex") +
+    "&showResultant='0'" +
+    "&showComponents='0'";
+  location.assign(diagramsHref);
+}
+
+function getNewSet()
+{
+  getDiv2Input();
+  newSet = "Yes";
+  setCookie("newSet",newSet,LIFESPAN);
+  location.reload();
+}
+
+function getDiv2Input()
+{
+  var div2 = document.getElementById( 'div2' ); 
+  var div2Input = div2.getElementsByTagName( 'input' ); 
+  newSetRowCount = div2Input[0].value;
+  setCookie("newSetRowCount",newSetRowCount,LIFESPAN);
+}
+
+function deleteSet(lastSetIndex)
+{
+  var rowsInSet = decodeURIComponent(getCookie( "rowsInSet" )).split(',');
+  var tableSets = getTableSets(rowsInSet); 
+  tableSets.splice(lastSetIndex,1);
+  rowsInSet.splice(lastSetIndex,1);
+  var newSet = getCookie("newSet");
+  var newSetRowCount = getCookie("newSetRowCount");
+  if (lastSetIndex == rowsInSet.length)
+  {
+    lastSetIndex = 0;
+  }
+  if (rowsInSet.length == 0)
+  {
+    newSet = "Yes";
+  }
+  setCookieAll(tableSets,rowsInSet,lastSetIndex,newSet,newSetRowCount);
+  location.reload();
+}
+
+</script>
+</head>
+  <body onload="dynamictable()">
+    <div id="div1">
+    </div>
+    <div id="div2">
+    </div>
+  </body>
+</html>

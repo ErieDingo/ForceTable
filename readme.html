@@ -1,0 +1,59 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<meta name="GENERATOR" content="Microsoft FrontPage Express 2.0">
+<title>Force Table</title>
+</head>
+
+<body>
+
+<pre>Force Table                Javascript version 1.0  06/26/14</pre>
+
+<p><a href="VectorTable.html">Click here to go directly to Force
+Table Data Entry</a></p>
+
+<pre>There are two types of displays. The first is for entering vectors by specifying length 
+and degrees. The other type displays a diagram of a set of vectors. </pre>
+
+<pre>The data entry display:
+Each row contains a column for length and a column for degrees. 
+   The buttons:
+      Next Set: Displays the next set of vectors.
+      Diagrams: Switches to the diagram display.
+      New Set (of x Vectors): Displays a blank series of rows. Change x to specify the 
+         number of rows. 
+      Delete Set: Deletes the currently displayed set of vectors.</pre>
+
+<pre>The diagram display:
+Each window displays a set of vectors as red arrows. There is a label at the top of the 
+window that shows the numerical values for each vector. When the Resultant button is 
+pressed, a blue resultant vector is also displayed and its numerical values are added to 
+the label at the top of the window. The Resultant button changes to say Next Set. The 
+Components button will display the components for each vector along with the numerical 
+value of each component. The Next Set button will display the next set of vectors. The 
+Enter Sets button switches to the data entry display. </pre>
+
+<pre>The VectorTable.html file contains the numerical values of the vectors (except the 
+resultant) to be displayed. The resultant is calculated by the computer. The Javascript 
+statements in VectorTable.html that contain the initial values are:
+    var tableSets = [[[230,48],[400,195]],
+                     [[150,110],[300,180],[375,280]],
+                     [[200,30],[300,70],[350,300],[400,280]]];
+    var rowsInSet = [2,3,4];
+These values get saved in a cookie with a 30 day lifespan.
+</pre>
+
+<pre>Installation: Unzip the ForceTable.zip file into a folder for your web server's 
+html documents.</pre>
+
+<pre>Operation: Enter the URL for VectorTable.html into your browser. The vectors will be 
+displayed in the browser. </pre>
+
+<pre>This version was rewritten in Javascript from an earlier Java applet. Since then 
+Java has required a trusted certificate to run applets.</pre>
+
+<pre>Author: Rodney Speel   rs081303@yahoo.com</pre>
+</body>
+</html>

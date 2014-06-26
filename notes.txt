@@ -1,0 +1,39 @@
+5/7/14 VectorTable004.html -- Trying to get location.reload() to 
+recalculate the table but instead it reloads the html without 
+recalculating the table. The reload goes directly to 
+ document.getElementById("div1").appendChild(table1); This was
+done without starting Apache web server.
+5/8/14 VectorTable004.html Diagrams button now displays canvas.html.
+VectorsPanel.html is for drawing vectors. Trying to pass vector set 
+from VectorTable004.html to VectorsPanel.html.
+5/9/14 Latest versions are in htdocs with names VectorTable.html, 
+VectorsPanel.html.
+5/13/14 VectorsPanel.html got message about losing Unicode. VectorsPanel001.html
+is an attempt to save an earlier version.
+Part of arrow is cut off. Vectors not within margins. Alert statements 
+to be removed.
+5/14/14 Second and third set of vectors are centered to the left. 
+To see the bottom portion of the diagram, scrolling is required.
+First set of vectors is centered to bottom of screen.
+5/15/14 VectorsPanel005 is after centering set of vectors on screen.
+5/16/14 VectorTable was modified to use insertRow(-1) and insertCell(-1). That
+makes it compatible with both Internet Explorer and Chrome. Also made cells 
+input capable. See http://jsfiddle.net/ondras/hYfN3/ for a javascript 
+spreadsheet.
+5/20/14 VectorTable was modified to get input values.
+5/22/14 VectorTable was modified to get a new set of vectors.
+5/23/14 VectorTable was modified to allow deleting set of vectors.
+When new set of vectors was entered and it was the only set, the components 
+were shifted ahead by one element and the first x component was set
+to zero. -- Fixed
+6/13/14 VectorsPanel.html now has Resultant/Next Set button.
+6/16/14 Path2D object not available yet for all browsers. Need to 
+use the Polygon.contains() function already in VectorPanel.html.
+6/20/14 Need to reverse sign of displayed y Components. Dash length
+is too long. Need to display components for the resultant.
+6/23/14 y component label gets cut off by width of canvas on left or right.
+Sometimes component lines and labels are not on the best side (inside or
+outside) of the enclosure formed by the added vectors. For example, make
+the window smaller, then refresh, for the set with four vectors.
+For R= 76.536 at 67.501deg.,A= 50 at 0deg.,B= 100 at 225deg.,C= 50 at 0deg., the vector
+and component labels overlap and component labels from different vectors overlap.
