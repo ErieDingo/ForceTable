@@ -122,10 +122,12 @@ function putVectorLabel(lineLabel, isVector, line, phi, faceVector) {
 // If isVector is true, the label is for a vector instead of a
 // component.
   var labelWidth = ctx.measureText(lineLabel).width;
-  var labelLocation = getLabelLocation(labelWidth,phi,line,faceVector);
-  if (showComponents && isVector && 
+  var labelLocation = getLabelLocation(labelWidth,phi,line,faceVector);  
+  if ((showComponents && isVector && 
     !triangle.contains(labelLocation) &&
-    !enclosure.contains(labelLocation))
+    !enclosure.contains(labelLocation)) ||
+    labelLocation.x < pixelsInFont ||
+    (labelLocation.x + labelWidth * pixelsInFont) > thisCanvas.width)
     {
        labelLocation = getLabelLocation(labelWidth,phi,line,!faceVector);
     }
@@ -327,11 +329,18 @@ h = h -15;
 // h - 50 to eliminate scroll bar in Chrome.
 w = w - 20;
 h = h - 50;
-document.getElementById("myCanvas").width=w;
-document.getElementById("myCanvas").height=h;
+var thisCanvas=document.getElementById("myCanvas");
+thisCanvas.width=w;
+thisCanvas.height=h;
 var dashLength = w/100;	
 if(dashLength < 5) dashLength=5;
 
+var ctx=thisCanvas.getContext("2d");
+var pixelsInFont = ctx.font.slice(0,ctx.font.indexOf("px"));
+fontHeight = 1.0 * pixelsInFont;
+fontAscent = 0.8 * pixelsInFont;
+fontDescent = 0.2 * pixelsInFont;
+offset = .5 * pixelsInFont;
 </script>
 
 <script>
@@ -386,13 +395,7 @@ var radians = new Array();
 var enclosure = new Polygon();
 var triangle = new Polygon();	
 var line = new Line(0,0,0,0);
-var c=document.getElementById("myCanvas");
-var ctx=c.getContext("2d");
-var pixelsInFont = ctx.font.slice(0,ctx.font.indexOf("px"));
-fontHeight = 1.0 * pixelsInFont;
-fontAscent = 0.8 * pixelsInFont;
-fontDescent = 0.2 * pixelsInFont;
-offset = .5 * pixelsInFont;
+
 for (var j = 0; j < rowsInSet[lastSetIndex];j++){
   vectorLength = tableSets[lastSetIndex][j][0];
   tryPrecision = vectorLength.toString().length;
@@ -416,11 +419,11 @@ yMin = Math.min.apply(Math,yArray);
 
 xSpan = (Math.max.apply(Math,xArray)) - xMin;
 ySpan = (Math.max.apply(Math,yArray)) - yMin;
-xScale = (c.width - (2 *margin))/xSpan;
-yScale = (c.height - (2 * margin))/ySpan;
+xScale = (thisCanvas.width - (2 *margin))/xSpan;
+yScale = (thisCanvas.height - (2 * margin))/ySpan;
 scale = Math.min(xScale,yScale);
 xOrigin = (scale * xMin) - margin;
-yOrigin = c.height - margin + (scale * yMin);
+yOrigin = thisCanvas.height - margin + (scale * yMin);
 if (xScale > yScale){
   scale = yScale;
   xOrigin = xOrigin - ((xScale - yScale)*.5*xSpan);
@@ -498,7 +501,7 @@ var htmlInput = '<input id="input1" type="text" name="vectorText" value="' +
 document.getElementById("div1").innerHTML = htmlInput + htmlButton1 + 
   htmlButton2 + htmlButton3;
 document.getElementById("input1").size = textSet.join().length; 
-ctx.fillText("author: Rodney Speel",0,c.height);
+ctx.fillText("author: Rodney Speel",0,thisCanvas.height);
 </script>
 
 </body>
