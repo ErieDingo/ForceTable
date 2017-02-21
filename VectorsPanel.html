@@ -475,10 +475,12 @@ if (showResultant == "1"){
   ctx.strokeStyle="black";
   putVectorLabel(lineLabel, true,line, theta, true);
   ctx.stroke();
+  vectorLength = ((line.x2 - line.x1)/Math.cos(theta))/scale;
+  // recalculate theta for getVectorText "degrees"
+  theta = Math.atan2((line.y1 - line.y2),(line.x2 - line.x1));
   degrees = theta * (180.0/Math.PI);
   if (degreesPrecision < 5) degreesPrecision = 5;
   degrees = degrees.toPrecision(degreesPrecision);
-  vectorLength = ((line.x2 - line.x1)/Math.cos(theta))/scale;
   if (lengthPrecision < 4) lengthPrecision = 4;
   vectorLength = vectorLength.toPrecision(lengthPrecision + 1);
   vectorText = 
