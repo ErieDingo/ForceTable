@@ -20,7 +20,7 @@ function detectCollision(listArea){
      labelArea.height + labelArea.y > listArea.y) {
     // collision detected!
     if (labelArea.y > listArea.y &&
-	   verticalAdjust != "down") {-
+	   verticalAdjust != "down") {
       verticalAdjust = "up";
 	  labelLocation.x += labelArea.height *
 	    (deltaX/deltaY);
