@@ -11,6 +11,7 @@
       </canvas>
     </div>
   </div>
+<script src="vectorsPanel.js"></script>
 <script>
 
 var LIFESPAN = 30;
@@ -138,13 +139,14 @@ function putVectorLabel(lineLabel, isVector, line, phi, faceVector) {
 function getLabelLocation(labelWidth, phi, line, faceVector) {
   var xOffset=0.0, yOffset=0.0, deltaX, deltaY;
   var labelLocation = new Point(xOffset, yOffset);	
+  var verticalAdjust = " ";
   deltaX = line.x2 - line.x1;
   deltaY = line.y2 - line.y1;
   if (!faceVector ){
     if ((deltaX)<0){
       if ((deltaY)>0){
-	xOffset = -(offset * Math.sin(phi));   
-	yOffset = fontHeight - fontDescent - (offset * Math.cos(phi));
+	    xOffset = -(offset * Math.sin(phi));   
+	    yOffset = fontHeight - fontDescent - (offset * Math.cos(phi));
       }
       else{
         xOffset = offset * Math.sin(phi);   
@@ -166,21 +168,21 @@ function getLabelLocation(labelWidth, phi, line, faceVector) {
   if (faceVector){           
     if ((deltaX)<0){
       if ((deltaY)>0){
-	xOffset = offset * Math.sin(phi);   
+	    xOffset = offset * Math.sin(phi);   
         yOffset = offset * Math.cos(phi);
       }
       else{
         xOffset = -(offset * Math.sin(phi));   
-	yOffset = fontAscent -(offset * Math.cos(phi));
+	    yOffset = fontAscent -(offset * Math.cos(phi));
       }
     }
     else{
       if ((deltaY)>0){
-	xOffset = offset * Math.sin(phi);
-	yOffset = fontAscent +(offset * Math.cos(phi));
+	    xOffset = offset * Math.sin(phi);
+	    yOffset = fontAscent +(offset * Math.cos(phi));
       }
       else{
-	xOffset = -offset * Math.sin(phi);
+	    xOffset = -offset * Math.sin(phi);
         yOffset = -(offset * Math.cos(phi));
       } 
     }
@@ -191,7 +193,8 @@ function getLabelLocation(labelWidth, phi, line, faceVector) {
     (deltaX/2.0) + xOffset + line.x1;
   labelLocation.y = 
     (deltaY/2.0) + yOffset + line.y1;
-  return labelLocation;
+  addLabelArea(labelLocation, labelWidth);
+	return labelLocation;
 }
 
 function getVectorText(i,length,angle){
@@ -395,6 +398,7 @@ var radians = new Array();
 var enclosure = new Polygon();
 var triangle = new Polygon();	
 var line = new Line(0,0,0,0);
+var labelAreaList = [];
 
 for (var j = 0; j < rowsInSet[lastSetIndex];j++){
   vectorLength = tableSets[lastSetIndex][j][0];
