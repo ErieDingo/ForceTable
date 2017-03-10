@@ -1,10 +1,10 @@
 				   
 function addLabelArea(labelLocation, labelWidth) {
-  var i = 1;
+  var i = 0;
   var verticalAdjust = " ";
   var listArea = {};
   var labelArea = new LabelBox(labelLocation, labelWidth);
-  for (i = 1; i < labelAreaList.length; i++) { 
+  for (i = 0; i < labelAreaList.length; i++) { 
     listArea = labelAreaList[i];
 	detectCollision(labelArea,listArea);
   }  
