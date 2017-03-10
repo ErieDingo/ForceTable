@@ -8,7 +8,7 @@ function addLabelArea(labelLocation, labelWidth) {
 
 function LabelBox(labelLocation, labelWidth) {
   var x = labelLocation.x - (2.0 * offset);
-  var y = labelLocation.y - fontHeight);
+  var y = labelLocation.y - fontHeight;
   var width = labelWidth + 4.0 * offset;
   var height = 3.0 * fontHeight;
 }	
