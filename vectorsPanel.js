@@ -2,7 +2,7 @@
 function addLabelArea(labelLocation, labelWidth) {
   var verticalAdjust = " ";
   var labelArea = new LabelBox(labelLocation, labelWidth);
-  labelAreaList.foreach(detectCollision);
+  labelAreaList.forEach(detectCollision);
   labelAreaList.push(labelArea);
 }
 
