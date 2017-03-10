@@ -7,10 +7,10 @@ function addLabelArea(labelLocation, labelWidth) {
 }
 
 function LabelBox(labelLocation, labelWidth) {
-  var x = labelLocation.x - (2.0 * offset);
-  var y = labelLocation.y - fontHeight;
-  var width = labelWidth + 4.0 * offset;
-  var height = 3.0 * fontHeight;
+  this.x = labelLocation.x - (2.0 * offset);
+  this.y = labelLocation.y - fontHeight;
+  this.width = labelWidth + 4.0 * offset;
+  this.height = 3.0 * fontHeight;
 }	
 
 function detectCollision(listArea){
