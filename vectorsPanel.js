@@ -1,8 +1,13 @@
 				   
 function addLabelArea(labelLocation, labelWidth) {
+  var i = 1;
   var verticalAdjust = " ";
+  var listArea = {};
   var labelArea = new LabelBox(labelLocation, labelWidth);
-  labelAreaList.forEach(detectCollision);
+  for (i = 1; i < labelAreaList.length; i++) { 
+    listArea = labelAreaList[i];
+	detectCollision(labelArea,listArea);
+  }  
   labelAreaList.push(labelArea);
 }
 
@@ -13,7 +18,7 @@ function LabelBox(labelLocation, labelWidth) {
   this.height = 3.0 * fontHeight;
 }	
 
-function detectCollision(listArea){
+function detectCollision(labelArea,listArea){
   if (labelArea.x < listArea.x + listArea.width &&
      labelArea.x + labelArea.width > listArea.x &&
      labelArea.y < listArea.y + listArea.height &&
@@ -31,5 +36,7 @@ function detectCollision(listArea){
 	    (deltaX/deltaY);
 	  labelLocation.y -= labelArea.height; 	
     }		
+    labelArea.x = labelLocation.x - (2.0 * offset);
+    labelArea.y = labelLocation.y - fontHeight;	
   }
 }
