@@ -124,7 +124,7 @@ function putVectorLabel(lineLabel, isVector, line, phi, faceVector) {
 // component.
   var labelWidth = ctx.measureText(lineLabel).width;
   var labelLocation = getLabelLocation(labelWidth,phi,line,faceVector);  
-  if ((showComponents && isVector && 
+  if ((showComponents == "1" && isVector && 
     !triangle.contains(labelLocation) &&
     !enclosure.contains(labelLocation)) ||
     labelLocation.x < pixelsInFont ||
