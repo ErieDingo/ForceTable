@@ -339,7 +339,7 @@ var dashLength = w/100;
 if(dashLength < 5) dashLength=5;
 
 var ctx=thisCanvas.getContext("2d");
-var pixelsInFont = ctx.font.slice(0,ctx.font.indexOf("px"));
+var pixelsInFont = Number(ctx.font.slice(0,ctx.font.indexOf("px")));
 fontHeight = 1.0 * pixelsInFont;
 fontAscent = 0.8 * pixelsInFont;
 fontDescent = 0.2 * pixelsInFont;
