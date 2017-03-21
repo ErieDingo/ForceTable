@@ -130,7 +130,8 @@ function putVectorLabel(lineLabel, isVector, line, phi, faceVector) {
     labelLocation.x < pixelsInFont ||
     (labelLocation.x + labelWidth * pixelsInFont) > thisCanvas.width)
     {
-       labelLocation = getLabelLocation(labelWidth,phi,line,!faceVector);
+      labelAreaList.pop();
+      labelLocation = getLabelLocation(labelWidth,phi,line,!faceVector);
     }
   ctx.fillText(lineLabel,labelLocation.x,labelLocation.y);
   return;
