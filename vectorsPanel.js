@@ -32,7 +32,8 @@ function detectCollision(labelArea,listArea){
      deltaX = line.x2 - line.x1;
      deltaY = line.y2 - line.y1;
 	 xIncrement = labelArea.height * (deltaX/deltaY);
-	 if (Math.abs(xIncrement) < labelArea.width) xIncrement = 0;
+	 if (Math.abs(xIncrement) < labelArea.width ||
+	    Math.abs(deltaY) < negligible) xIncrement = 0;
 	 if (labelArea.y > listArea.y &&
 	   labelArea.verticalAdjust != "down") {
       labelArea.verticalAdjust = "up";
