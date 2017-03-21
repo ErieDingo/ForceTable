@@ -22,7 +22,7 @@ function LabelBox(labelLocation, labelWidth, line) {
   }	
 
 function detectCollision(labelArea,listArea){
-  var deltaX, deltaY, line;
+  var deltaX, deltaY, line, xIncrement;
   if (labelArea.x < listArea.x + listArea.width &&
      labelArea.x + labelArea.width > listArea.x &&
      labelArea.y < listArea.y + listArea.height &&
@@ -31,16 +31,16 @@ function detectCollision(labelArea,listArea){
 	 line = labelArea.line;
      deltaX = line.x2 - line.x1;
      deltaY = line.y2 - line.y1;
+	 xIncrement = labelArea.height * (deltaX/deltaY);
+	 if (Math.abs(xIncrement) < labelArea.width) xIncrement = 0;
 	 if (labelArea.y > listArea.y &&
 	   labelArea.verticalAdjust != "down") {
       labelArea.verticalAdjust = "up";
-	  labelArea.x += labelArea.height *
-	    (deltaX/deltaY);
+	  labelArea.x += xIncrement;
 	  labelArea.y += labelArea.height; 	
 	} else {
       labelArea.verticalAdjust = "down"; 
-	  labelArea.x -= labelArea.height *
-	    (deltaX/deltaY);
+	  labelArea.x -= xIncrement;
 	  labelArea.y -= labelArea.height; 	
     }		
   }
