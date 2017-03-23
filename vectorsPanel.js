@@ -5,19 +5,11 @@ function addLabelArea(labelLocation, labelWidth, line) {
   var labelArea = new LabelBox(labelLocation, labelWidth, line);
   for (i = 0; i < labelAreaList.length; i++) { 
     listArea = labelAreaList[i];
-	detectCollision(labelArea,listArea);
+    detectCollision(labelArea,listArea);
     if (areaContainsSegment(line.x1,-line.y1, line.x2,-line.y2,
       labelLocation.x,-labelLocation.y - fontHeight,
-	  labelLocation.x + labelWidth, -labelLocation.y) == true) {
-	  if (labelArea.verticalAdjust != "down") {
-        labelArea.verticalAdjust = "up";
-	    labelArea.x += xIncrement;
-	    labelArea.y += labelArea.height; 	
-	  } else {
-        labelArea.verticalAdjust = "down"; 
-	    labelArea.x -= xIncrement;
-	    labelArea.y -= labelArea.height; 	
-      }		
+      labelLocation.x + labelWidth, -labelLocation.y) == true) {
+      adjustLabelPosition(labelArea,listArea);
     }
   }  
   labelAreaList.push(labelArea);
@@ -42,21 +34,7 @@ function detectCollision(labelArea,listArea){
      labelArea.y < listArea.y + listArea.height &&
      labelArea.height + labelArea.y > listArea.y) {
 	 // collision detected!
-     deltaX = line.x2 - line.x1;
-     deltaY = line.y2 - line.y1;
-	 xIncrement = labelArea.height * (deltaX/deltaY);
-	 if (Math.abs(xIncrement) < labelArea.width ||
-	    Math.abs(deltaY) < negligible) xIncrement = 0;
-	 if (labelArea.y > listArea.y &&
-	   labelArea.verticalAdjust != "down") {
-      labelArea.verticalAdjust = "up";
-	  labelArea.x += xIncrement;
-	  labelArea.y += labelArea.height; 	
-	} else {
-      labelArea.verticalAdjust = "down"; 
-	  labelArea.x -= xIncrement;
-	  labelArea.y -= labelArea.height; 	
-    }		
+     adjustLabelPosition(labelArea,listArea);
   }
 }
 
@@ -85,4 +63,23 @@ function areaContainsSegment (x1,y1,x2,y2,minX,minY,maxX,maxY) {
 
 	return false;
 }
-				   
+
+function adjustLabelPosition(labelArea,listArea){
+  var deltaX, deltaY, line, xIncrement;
+  line = labelArea.line;
+  deltaX = line.x2 - line.x1;
+  deltaY = line.y2 - line.y1;
+  xIncrement = labelArea.height * (deltaX/deltaY);
+  if (Math.abs(xIncrement) < labelArea.width ||
+    Math.abs(deltaY) < negligible) xIncrement = 0;
+  if (labelArea.y > listArea.y &&
+    labelArea.verticalAdjust != "down") {
+    labelArea.verticalAdjust = "up";
+    labelArea.x += xIncrement;
+    labelArea.y += labelArea.height; 	
+  } else {
+    labelArea.verticalAdjust = "down"; 
+    labelArea.x -= xIncrement;
+    labelArea.y -= labelArea.height; 	
+  }		
+}
