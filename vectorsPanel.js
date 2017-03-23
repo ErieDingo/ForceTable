@@ -6,11 +6,24 @@ function addLabelArea(labelLocation, labelWidth, line) {
   for (i = 0; i < labelAreaList.length; i++) { 
     listArea = labelAreaList[i];
 	detectCollision(labelArea,listArea);
+    if (areaContainsSegment(line.x1,-line.y1, line.x2,-line.y2,
+      labelLocation.x,-labelLocation.y - font.height,
+	  labelLocation.x + labelwidth, -labelLocation.y) == true) {
+	  if (labelArea.verticalAdjust != "down") {
+        labelArea.verticalAdjust = "up";
+	    labelArea.x += xIncrement;
+	    labelArea.y += labelArea.height; 	
+	  } else {
+        labelArea.verticalAdjust = "down"; 
+	    labelArea.x -= xIncrement;
+	    labelArea.y -= labelArea.height; 	
+      }		
+    }
   }  
   labelAreaList.push(labelArea);
   labelLocation.x = labelArea.x + (2.0 * offset);
   labelLocation.y = labelArea.y + fontHeight;	
-  }
+}
 
 function LabelBox(labelLocation, labelWidth, line) {
   this.x = labelLocation.x - (2.0 * offset);
@@ -45,19 +58,7 @@ function detectCollision(labelArea,listArea){
 	  labelArea.y -= labelArea.height; 	
     }		
   }
-  if (areaContainsSegment(line.x1,-line.y1, line.x2,-line.y2,
-    labelArea.x,-labelArea.y - labelArea.height,
-    labelArea.x + labelArea.width, -labelArea.y) == true) {
-    if (labelArea.verticalAdjust != "down") {
-      labelArea.verticalAdjust = "up";
-	  labelArea.x += xIncrement;
-	  labelArea.y += labelArea.height; 	
-	} else {
-      labelArea.verticalAdjust = "down"; 
-	  labelArea.x -= xIncrement;
-	  labelArea.y -= labelArea.height; 	
-    }		
-  }
+}
 
 //stackoverflow/a/18292964
 function areaContainsSegment (x1,y1,x2,y2,minX,minY,maxX,maxY) {  
@@ -84,5 +85,4 @@ function areaContainsSegment (x1,y1,x2,y2,minX,minY,maxX,maxY) {
 
 	return false;
 }
-	
-}
+				   
