@@ -47,7 +47,7 @@ function detectCollision(labelArea,listArea){
   }
   if (areaContainsSegment(line.x1,line.y1,line.x2,line.y2,
     labelArea.x,labelArea.y,labelArea.x + labelArea.width,
-	labelArea.y + labelArea.height) = true) {
+	labelArea.y + labelArea.height) == true) {
 	if (labelArea.verticalAdjust != "down") {
       labelArea.verticalAdjust = "up";
 	  labelArea.x += xIncrement;
