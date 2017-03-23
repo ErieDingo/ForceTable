@@ -7,7 +7,7 @@ function addLabelArea(labelLocation, labelWidth, line) {
     listArea = labelAreaList[i];
 	detectCollision(labelArea,listArea);
     if (areaContainsSegment(line.x1,-line.y1, line.x2,-line.y2,
-      labelLocation.x,-labelLocation.y - fontheight,
+      labelLocation.x,-labelLocation.y - fontHeight,
 	  labelLocation.x + labelwidth, -labelLocation.y) == true) {
 	  if (labelArea.verticalAdjust != "down") {
         labelArea.verticalAdjust = "up";
