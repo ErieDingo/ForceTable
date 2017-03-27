@@ -76,10 +76,10 @@ function adjustLabelPosition(labelArea,listArea){
     labelArea.verticalAdjust != "down") {
     labelArea.verticalAdjust = "up";
     labelArea.x += xIncrement;
-    labelArea.y += labelArea.height; 	
+    labelArea.y -= labelArea.height; 	
   } else {
     labelArea.verticalAdjust = "down"; 
     labelArea.x -= xIncrement;
-    labelArea.y -= labelArea.height; 	
+    labelArea.y += labelArea.height; 	
   }		
 }
