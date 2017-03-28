@@ -6,7 +6,8 @@ function addLabelArea(labelLocation, labelWidth, line) {
   for (i = 0; i < labelAreaList.length; i++) { 
     listArea = labelAreaList[i];
     detectCollision(labelArea,listArea);
-    if (areaContainsSegment(line.x1,-line.y1, line.x2,-line.y2,
+    if (areaContainsSegment(listArea.line.x1,-listArea.line.y1, 
+      listArea.line.x2,-listArea.line.y2,
       labelLocation.x,-labelLocation.y - fontHeight,
       labelLocation.x + labelWidth, -labelLocation.y) == true) {
       adjustLabelPosition(labelArea,listArea);
