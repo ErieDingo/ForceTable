@@ -19,7 +19,7 @@ function addLabelArea(labelLocation, labelWidth, line) {
 }
 
 function LabelBox(labelLocation, labelWidth, line) {
-  this.x = labelLocation.x - offset);
+  this.x = labelLocation.x - offset;
   this.y = labelLocation.y - fontHeight;
   this.width = labelWidth + offset;
   this.height = fontHeight;
