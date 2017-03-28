@@ -14,7 +14,7 @@ function addLabelArea(labelLocation, labelWidth, line) {
     }
   }  
   labelAreaList.push(labelArea);
-  labelLocation.x = labelArea.x + (2.0 * offset);
+  labelLocation.x = labelArea.x + offset;
   labelLocation.y = labelArea.y + fontHeight;	
 }
 
