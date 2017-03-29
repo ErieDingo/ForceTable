@@ -24,7 +24,7 @@ function LabelBox(labelLocation, labelWidth, line) {
   this.width = labelWidth + (2.0 * offset);
   this.height = fontHeight + (2.0 * offset);
   this.verticalAdjust = " ";
-  this.line = line;
+  this.line = new Line(line.x1,line.y1,line.x2,line.y2);
   }	
 
 function detectCollision(labelArea,listArea){
