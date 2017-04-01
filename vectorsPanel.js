@@ -5,11 +5,11 @@ function addLabelArea(labelLocation, labelWidth, line) {
   var labelArea = new LabelBox(labelLocation, labelWidth, line);
   for (i = 0; i < labelAreaList.length; i++) { 
     listArea = labelAreaList[i];
-	detectCollision(labelArea,listArea);
+    detectCollision(labelArea,listArea);
     if (areaContainsSegment(listArea.line.x1,-listArea.line.y1, 
-	  listArea.line.x2,-listArea.line.y2,
+      listArea.line.x2,-listArea.line.y2,
       labelArea.x,-labelArea.y - labelArea.height,
-	  labelArea.x + labelArea.width, -labelArea.y) == true) {
+      labelArea.x + labelArea.width, -labelArea.y) == true) {
       adjustLabelPosition(labelArea,listArea);
     }
   }  
@@ -25,7 +25,7 @@ function LabelBox(labelLocation, labelWidth, line) {
   this.height = fontHeight + (2.0 * offset);
   this.verticalAdjust = " ";
   this.line = new Line(line.x1,line.y1,line.x2,line.y2);
-  }	
+}	
 
 function detectCollision(labelArea,listArea){
   if (labelArea.x < listArea.x + listArea.width &&
@@ -64,20 +64,23 @@ function areaContainsSegment (x1,y1,x2,y2,minX,minY,maxX,maxY) {
 }
 
 function adjustLabelPosition(labelArea,listArea){
-  var deltaX, deltaY, line, xIncrement;
+  var deltaX, deltaY, line, xIncrement, overBottom;
   line = labelArea.line;
   deltaX = line.x2 - line.x1;
   deltaY = line.y2 - line.y1;
   xIncrement = labelArea.height * (deltaX/deltaY);
   if (Math.abs(deltaY) < negligible) xIncrement = 0;
   if (labelArea.y > listArea.y &&
-	labelArea.verticalAdjust != "down") {
+    labelArea.verticalAdjust != "down") {
     labelArea.verticalAdjust = "up";
-	labelArea.x += xIncrement;
-	labelArea.y -= labelArea.height; 	
+    labelArea.x += xIncrement;
+    labelArea.y -= labelArea.height; 	
   } else {
     labelArea.verticalAdjust = "down"; 
     labelArea.x -= xIncrement;
-	labelArea.y += labelArea.height; 	
+    labelArea.y += labelArea.height; 	
   }		
+  overBottom = ((labelArea.y - offset) + fontHeight + fontDescent) -
+    thisCanvas.height;  
+  if (overBottom > 0.0) labelArea.y -= overBottom;
 }
