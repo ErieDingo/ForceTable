@@ -39,3 +39,4 @@ For R= 76.536 at 67.501deg.,A= 50 at 0deg.,B= 100 at 225deg.,C= 50 at 0deg., the
 and component labels overlap and component labels from different vectors overlap.
 2/20/17 Fixed sign of resultant degrees.
 3/9/17 Adjust label positions for overlapping labels.
+4/10/17 
