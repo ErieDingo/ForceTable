@@ -482,7 +482,7 @@ if (showResultant == "1"){
   ctx.stroke();
   letter = 17; // 17 --> R
   lineLabel = String.fromCharCode(letter + 65); 
-  theta = Math.atan2((line.y2 - line.y1),(line.x2 - line.x1));
+  theta = Math.atan2((line.y1 - line.y2),(line.x2 - line.x1));
   ctx.beginPath();
   ctx.strokeStyle="black";
   putVectorLabel(lineLabel, true,line, theta, true);
