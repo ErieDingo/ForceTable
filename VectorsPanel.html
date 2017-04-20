@@ -481,12 +481,12 @@ for (var j = 0; j < rowsInSet[lastSetIndex];j++){
 }
 
 if (showResultant == "1"){
+  line.x1 = coordinateSets[0][0] - xOrigin; 
+  line.y1 = yOrigin - coordinateSets[0][1];
   // drawComponents includes calculating "triangle" used in putVectorLabel.
   if (showComponents == '1') drawComponents(line,xResultant,yResultant);
   // Set resultant from endpoint of last constructed line and begin point of 
   // first constructed line.
-  line.x1 = coordinateSets[0][0] - xOrigin; 
-  line.y1 = yOrigin - coordinateSets[0][1];
   ctx.beginPath();
   ctx.strokeStyle="blue";
   canvas_arrow(ctx,line.x1,line.y1,line.x2,line.y2);
