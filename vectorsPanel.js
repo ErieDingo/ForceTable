@@ -30,8 +30,8 @@ function addLabelArea(labelLocation, labelWidth, line) {
 function LabelBox(labelLocation, labelWidth, line) {
   this.x = labelLocation.x - offset;
   this.y = labelLocation.y - offset;
-  this.width = labelWidth + (0.0 * offset);
-  this.height = fontHeight + (0.0 * offset);
+  this.width = labelWidth + (2.0 * offset);
+  this.height = fontHeight + (2.0 * offset);
   this.verticalAdjust = " ";
   this.line = new Line(line.x1,line.y1,line.x2,line.y2);
   }	
